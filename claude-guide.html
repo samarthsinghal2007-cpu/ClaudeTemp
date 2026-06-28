@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Guide - How to Use Claude AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 120px;
+            z-index: 99;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        nav button.active {
+            background: #764ba2;
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .card h3 {
+            color: #764ba2;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+
+        .card p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-box h4 {
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .feature-box p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .tip-box {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .tip-box strong {
+            color: #667eea;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .warning-box strong {
+            color: #856404;
+        }
+
+        .capability-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .capability-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #555;
+        }
+
+        .capability-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .use-case {
+            background: #f9f9f9;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .use-case h5 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        .toggle-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: #764ba2;
+        }
+
+        .collapsible-content {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .collapsible-content.show {
+            display: block;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                gap: 0.5rem;
+            }
+
+            nav button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🤖 Claude AI Guide</h1>
+        <p>Learn how to use Claude and unlock its powerful features</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><button class="nav-btn active" data-section="intro">Introduction</button></li>
+            <li><button class="nav-btn" data-section="features">Features</button></li>
+            <li><button class="nav-btn" data-section="how-to-use">How to Use</button></li>
+            <li><button class="nav-btn" data-section="capabilities">Capabilities</button></li>
+            <li><button class="nav-btn" data-section="use-cases">Use Cases</button></li>
+            <li><button class="nav-btn" data-section="tips">Tips & Tricks</button></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Introduction Section -->
+        <section id="intro" class="active">
+            <div class="card">
+                <h2>Welcome to Claude</h2>
+                <p>Claude is an AI assistant created by Anthropic. It's designed to be helpful, harmless, and honest. Claude can help you with a wide variety of tasks including writing, analysis, math, coding, creative projects, and much more.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>💬 Conversational</h4>
+                        <p>Natural, intuitive conversations</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>🧠 Intelligent</h4>
+                        <p>Advanced reasoning and analysis</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>🛡️ Safe</h4>
+                        <p>Designed to be helpful and harmless</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>⚡ Fast</h4>
+                        <p>Quick and efficient responses</p>
+                    </div>
+                </div>
+
+                <h3>Claude Versions</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Model</th>
+                        <th>Best For</th>
+                        <th>Speed</th>
+                        <th>Intelligence</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Haiku</strong></td>
+                        <td>Simple tasks, quick responses</td>
+                        <td>⚡⚡⚡</td>
+                        <td>★★☆</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sonnet</strong></td>
+                        <td>Balanced performance</td>
+                        <td>⚡⚡</td>
+                        <td>★★★</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Opus</strong></td>
+                        <td>Complex tasks, maximum capability</td>
+                        <td>⚡</td>
+                        <td>★★★★</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features">
+            <div class="card">
+                <h2>Key Features</h2>
+
+                <h3>🎯 Long Context Windows</h3>
+                <p>Claude can handle very long documents and conversations, allowing it to understand and reference large amounts of information at once.</p>
+                <div class="tip-box">
+                    <strong>Tip:</strong> You can paste entire documents, code files, or lengthy conversations for analysis without losing context.
+                </div>
+
+                <h3>📎 File & Image Support</h3>
+                <p>Upload documents, PDFs, images, and other files for Claude to analyze and process.</p>
+                <ul class="capability-list">
+                    <li>Analyze images and screenshots</li>
+                    <li>Extract text from PDFs</li>
+                    <li>Process data from spreadsheets</li>
+                    <li>Review code files</li>
+                </ul>
+
+                <h3>💻 Code Generation & Analysis</h3>
+                <p>Claude can write, debug, and explain code in dozens of programming languages.</p>
+                <div class="tip-box">
+                    <strong>Tip:</strong> Ask Claude to explain code, find bugs, optimize performance, or generate code from descriptions.
+                </div>
+
+                <h3>🔍 Research & Summarization</h3>
+                <p>Summarize large amounts of information, extract key points, and synthesize complex topics.</p>
+
+                <h3>✍️ Creative Writing</h3>
+                <p>Claude can help with creative projects including stories, poetry, brainstorming, and content creation.</p>
+
+                <h3>🧮 Analysis & Problem Solving</h3>
+                <p>Perform complex analysis, solve problems, and work through challenging questions step-by-step.</p>
+            </div>
+        </section>
+
+        <!-- How to Use Section -->
+        <section id="how-to-use">
+            <div class="card">
+                <h2>How to Get Started with Claude</h2>
+
+                <h3>1. Access Claude</h3>
+                <p>You can use Claude in several ways:</p>
+                <ul class="capability-list">
+                    <li><strong>Web App:</strong> Visit claude.ai in your browser</li>
+                    <li><strong>Claude Code:</strong> CLI tool for developers</li>
+                    <li><strong>API:</strong> Integrate Claude into your applications</li>
+                    <li><strong>Mobile:</strong> Use Claude on iOS and Android</li>
+                </ul>
+
+                <h3>2. Start a Conversation</h3>
+                <p>Click "New conversation" and type your message. Claude will respond naturally based on your input.</p>
+                <pre>You: "Help me write a Python function to sort a list of dictionaries by a specific key"
+
+Claude: (provides detailed solution with explanation)</pre>
+
+                <h3>3. Refine Your Request</h3>
+                <p>Use follow-up messages to clarify, expand, or modify what you want.</p>
+                <div class="tip-box">
+                    <strong>Tip:</strong> Be specific and clear. The more details you provide, the better Claude can help.
+                </div>
+
+                <h3>4. Upload Files</h3>
+                <p>Click the attachment icon to upload documents, images, or code files.</p>
+
+                <h3>5. Use Projects & Files</h3>
+                <p>Claude Code allows you to work with projects and maintain context across multiple files.</p>
+
+                <h3>Best Practices</h3>
+                <ul class="capability-list">
+                    <li>Be clear and specific about what you want</li>
+                    <li>Provide context and examples</li>
+                    <li>Ask follow-up questions to refine responses</li>
+                    <li>Break complex tasks into smaller steps</li>
+                    <li>Review and edit Claude's responses as needed</li>
+                    <li>Use formatting (code blocks, lists) for clarity</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Capabilities Section -->
+        <section id="capabilities">
+            <div class="card">
+                <h2>What Claude Can Do</h2>
+
+                <h3>🖊️ Writing & Content</h3>
+                <ul class="capability-list">
+                    <li>Write essays, articles, and blog posts</li>
+                    <li>Create marketing copy and product descriptions</li>
+                    <li>Draft emails and professional correspondence</li>
+                    <li>Brainstorm ideas and creative concepts</li>
+                    <li>Proofread and edit existing content</li>
+                    <li>Create outlines and structure complex documents</li>
+                </ul>
+
+                <h3>💻 Programming & Tech</h3>
+                <ul class="capability-list">
+                    <li>Write code in multiple languages (Python, JavaScript, Java, C++, etc.)</li>
+                    <li>Debug and fix code issues</li>
+                    <li>Explain complex algorithms and concepts</li>
+                    <li>Optimize code for performance</li>
+                    <li>Help with technical architecture decisions</li>
+                    <li>Generate SQL queries and database solutions</li>
+                </ul>
+
+                <h3>📊 Analysis & Research</h3>
+                <ul class="capability-list">
+                    <li>Analyze data and identify trends</li>
+                    <li>Summarize long documents and reports</li>
+                    <li>Compare and contrast different options</li>
+                    <li>Answer research questions with citations</li>
+                    <li>Extract key information from text</li>
+                    <li>Create timelines and summaries</li>
+                </ul>
+
+                <h3>🎨 Creative Tasks</h3>
+                <ul class="capability-list">
+                    <li>Write stories and fiction</li>
+                    <li>Create poetry and creative writing</li>
+                    <li>Generate dialogue and character development</li>
+                    <li>Brainstorm creative solutions</li>
+                    <li>Develop game narratives and scenarios</li>
+                    <li>Create humor and jokes</li>
+                </ul>
+
+                <h3>📚 Education & Learning</h3>
+                <ul class="capability-list">
+                    <li>Explain difficult concepts simply</li>
+                    <li>Create study guides and summaries</li>
+                    <li>Generate practice questions</li>
+                    <li>Help with homework and assignments</li>
+                    <li>Create learning plans</li>
+                    <li>Provide tutoring in various subjects</li>
+                </ul>
+
+                <h3>⚠️ What Claude Cannot Do</h3>
+                <div class="warning-box">
+                    <strong>Note:</strong> Claude cannot browse the internet, run code directly, make phone calls, or perform illegal activities. It also cannot learn from conversations or remember past interactions.
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases Section -->
+        <section id="use-cases">
+            <div class="card">
+                <h2>Popular Use Cases</h2>
+
+                <div class="use-case">
+                    <h5>📖 Content Creation</h5>
+                    <p>Generate blog posts, social media content, product descriptions, and marketing materials. Claude can adapt tone and style to match your brand.</p>
+                </div>
+
+                <div class="use-case">
+                    <h5>🧑‍💻 Software Development</h5>
+                    <p>Write boilerplate code, debug issues, review code quality, and help with architecture decisions. Great for learning new languages and frameworks.</p>
+                </div>
+
+                <div class="use-case">
+                    <h5>📝 Writing & Editing</h5>
+                    <p>Draft essays, refine prose, improve grammar, and restructure arguments. Claude can help with any writing project.</p>
+                </div>
+
+                <div class="use-case">
+                    <h5>🔬 Research & Analysis</h5>
+                    <p>Summarize research papers, analyze datasets, compare information sources, and extract insights from complex documents.</p>
+                </div>
+
+                <div class="use-case">
+                    <h5>📚 Education</h5>
+                    <p>Explain concepts, create study materials, generate practice questions, and provide tutoring assistance across subjects.</p>
+                </div>
+
+                <div class="use-case">
+                    <h5>💼 Business Tasks</h5>
+                    <p>Draft business plans, create presentations, analyze market trends, and help with professional communication.</p>
+                </div>
+
+                <div class="use-case">
+                    <h5>🎨 Creative Projects</h5>
+                    <p>Write stories and scripts, brainstorm creative ideas, develop characters, and explore fictional worlds.</p>
+                </div>
+
+                <div class="use-case">
+                    <h5>🔧 Technical Documentation</h5>
+                    <p>Generate API documentation, create user guides, write technical specifications, and document code.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips & Tricks Section -->
+        <section id="tips">
+            <div class="card">
+                <h2>Pro Tips & Best Practices</h2>
+
+                <h3>💡 Writing Effective Prompts</h3>
+                <button class="toggle-btn" onclick="toggleContent('prompt-tips')">Show Details</button>
+                <div id="prompt-tips" class="collapsible-content">
+                    <h4>Be Specific</h4>
+                    <p><strong>Bad:</strong> "Write a poem"</p>
+                    <p><strong>Good:</strong> "Write a haiku about autumn in the style of traditional Japanese poetry"</p>
+
+                    <h4>Provide Context</h4>
+                    <p><strong>Bad:</strong> "Explain machine learning"</p>
+                    <p><strong>Good:</strong> "Explain machine learning to a beginner who knows basic statistics but no programming"</p>
+
+                    <h4>Give Examples</h4>
+                    <p>When you provide examples of what you want, Claude can better match your style and requirements.</p>
+
+                    <h4>Use Format Instructions</h4>
+                    <p>Tell Claude how you want the output formatted: "Create a JSON response with...", "Format as a bullet list", etc.</p>
+
+                    <h4>Break Complex Tasks Into Steps</h4>
+                    <p>Instead of one massive request, break it into smaller, sequential tasks.</p>
+                </div>
+
+                <h3>🎯 Advanced Techniques</h3>
+                <button class="toggle-btn" onclick="toggleContent('advanced-tips')">Show Details</button>
+                <div id="advanced-tips" class="collapsible-content">
+                    <h4>Use System Prompts</h4>
+                    <p>In Claude Code and API, you can set system prompts to define Claude's behavior and style.</p>
+
+                    <h4>Leverage Long Context</h4>
+                    <p>Paste entire documents, code files, and conversations. Claude will remember the full context.</p>
+
+                    <h4>Iterative Refinement</h4>
+                    <p>Use follow-up messages to refine and improve responses. Ask Claude to "make it more concise", "add more examples", etc.</p>
+
+                    <h4>Chain Prompts</h4>
+                    <p>Break complex tasks into a series of prompts where each builds on the previous response.</p>
+
+                    <h4>Use the API for Automation</h4>
+                    <p>Integrate Claude into your applications using the Anthropic API for programmatic access.</p>
+                </div>
+
+                <h3>⚡ Productivity Tips</h3>
+                <button class="toggle-btn" onclick="toggleContent('productivity-tips')">Show Details</button>
+                <div id="productivity-tips" class="collapsible-content">
+                    <ul class="capability-list">
+                        <li>Use keyboard shortcuts for faster navigation</li>
+                        <li>Organize conversations in projects (Claude Code)</li>
+                        <li>Use templates for recurring types of requests</li>
+                        <li>Share conversations with others for collaboration</li>
+                        <li>Export conversations for reference</li>
+                        <li>Create custom instructions for your preferred style</li>
+                    </ul>
+                </div>
+
+                <h3>🔒 Privacy & Security</h3>
+                <button class="toggle-btn" onclick="toggleContent('privacy-tips')">Show Details</button>
+                <div id="privacy-tips" class="collapsible-content">
+                    <div class="warning-box">
+                        <strong>Important:</strong> Never share sensitive information like passwords, API keys, or personal data with Claude unless you're sure it's necessary for the task.
+                    </div>
+                    <ul class="capability-list">
+                        <li>Be cautious with personal or confidential information</li>
+                        <li>Understand that conversations may be used to improve Claude (configurable)</li>
+                        <li>Use appropriate privacy settings in your account</li>
+                        <li>Review what information you're uploading in files</li>
+                        <li>Don't rely on Claude for security-critical decisions without verification</li>
+                    </ul>
+                </div>
+
+                <h3>📈 Getting the Most from Claude</h3>
+                <ul class="capability-list">
+                    <li>Treat it as a collaborative tool, not an oracle</li>
+                    <li>Always review and verify Claude's responses</li>
+                    <li>Use it for brainstorming and iteration</li>
+                    <li>Ask follow-up questions to deepen understanding</li>
+                    <li>Provide feedback on quality to improve results</li>
+                    <li>Experiment with different prompt styles</li>
+                    <li>Use Claude Code for professional development work</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Claude Guide. Learn more at <strong>claude.ai</strong></p>
+        <p style="margin-top: 1rem; opacity: 0.8; font-size: 0.9rem;">Created to help you understand and master Claude AI</p>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('section');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const sectionId = this.getAttribute('data-section');
+
+                // Remove active class from all buttons and sections
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                sections.forEach(sec => sec.classList.remove('active'));
+
+                // Add active class to clicked button and corresponding section
+                this.classList.add('active');
+                document.getElementById(sectionId).classList.add('active');
+
+                // Scroll to top
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Toggle collapsible content
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            content.classList.toggle('show');
+
+            // Update button text
+            const button = event.target;
+            if (content.classList.contains('show')) {
+                button.textContent = 'Hide Details';
+            } else {
+                button.textContent = 'Show Details';
+            }
+        }
+
+        // Add smooth scrolling for internal navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
